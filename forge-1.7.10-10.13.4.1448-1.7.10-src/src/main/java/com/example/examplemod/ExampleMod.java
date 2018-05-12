@@ -66,6 +66,8 @@ public class ExampleMod {
 	public static Block rusticOre;	
 	public static Item tristoniumIngot;
 	public static Item tristoniumSword;
+	public static Item tristoniumPickaxe;
+	
 	// armor
 	public static Item obsidianHelmet;
 	public static Item obsidianChestplate;
@@ -162,6 +164,16 @@ public class ExampleMod {
 		tristoniumOre.setHarvestLevel("pickaxe", 3);
 	
 		GameRegistry.registerBlock(tristoniumOre, "tristonium");
+		
+		
+		// create new pickaxe
+		tristoniumPickaxe = new TristoniumPickaxe(tristoniumMaterial)
+				.setUnlocalizedName("tristoniumPickaxe")
+				.setTextureName(":diamond_pickaxe")
+				.setCreativeTab(tutorialTab)	
+				;
+		// register pickaxe
+		GameRegistry.registerItem(tristoniumPickaxe, "tristoniumPickaxe");
 		
 		
 //		rusticOre = new RusticOre()
