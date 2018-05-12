@@ -1,0 +1,6 @@
+To name a block or item you have to enter it into the en_US.lang file in assets.examplemod.lang
+inside the file you will put Item.(nameofitem).name = Name In Minecraft
+if you cannot figure out what the first part should be before the = sign then you can 
+load minecraft and hover over the block you want to name. What it says in minecraft is what you 
+will put before the = sign. After the = sign just write what you want to name the item or block.
+Open the en_US.lang file in assets.examplemod.lang to see how I named the items in my mod!

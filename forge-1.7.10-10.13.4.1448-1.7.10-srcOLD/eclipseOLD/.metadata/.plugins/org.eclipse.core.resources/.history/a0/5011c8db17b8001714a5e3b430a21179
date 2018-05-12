@@ -1,0 +1,65 @@
+package maxts2.tutorialmod;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
+public class TMEventHandler {
+	
+	@SubscribeEvent
+	public void checkUpdate(PlayerEvent.PlayerLoggedInEvent event)
+	{
+		
+		
+		
+	}
+	@SubscribeEvent
+	public void theowEgg(PlayerInteractEvent event)
+	{
+		if(event.entityPlayer.getHeldItem() != null && event.entityPlayer.getHeldItem().getItem() == Items.stick)
+		event.entityPlayer.displayGUIChest(event.entityPlayer.getInventoryEnderChest());
+		
+	}
+	
+	@SubscribeEvent
+	public void climbWall(PlayerTickEvent event) {
+
+		EntityPlayer player = event.player;
+
+		if (!player.isCollidedHorizontally) {
+			return;
+		}
+
+		if(player.isBlocking()){
+			player.motionY = -0.5;
+		} else if (player.isSneaking()) {
+			player.motionY = 0;
+		} else {
+			player.motionY = 0.1;
+		}
+
+	}
+
+	@SubscribeEvent
+	public void negateFallDamage(LivingFallEvent event) {
+		if (!(event.entity instanceof EntityPlayer)) {
+			return;
+		}
+
+		event.setCanceled(true);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
