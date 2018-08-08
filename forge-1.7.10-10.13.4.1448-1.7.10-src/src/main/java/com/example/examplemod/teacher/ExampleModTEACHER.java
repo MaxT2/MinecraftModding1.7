@@ -160,17 +160,6 @@ public class ExampleModTEACHER {
 
 
 
-
-
-		// --------------------- Register Items, Tools and Blocks ---------------------
-		//Register your custom Items, Tools and Blocks with the game registry here!
-		GameRegistry.registerItem(obsidianSword, "obsidianSword");		
-
-
-
-
-
-
 	} // end of PREINIT method. ALL of your modding code for the intro class should be above this line!
 
 

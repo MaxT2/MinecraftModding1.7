@@ -1,0 +1,417 @@
+/*
+ * Welcome to Minecraft Modding at Einstein's Workshop! This mod file will help you structure your very own Minecraft mod.
+ * There are a number of comments to help you understand the different parts of this file.
+ * Please follow along with your instructor and put the code under the appropriate comment!
+ * Write your own comments to help you understand what your code is doing!
+ */ 
+package com.example.examplemod;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+
+@Mod(modid = ExampleMod.MODID, version = ExampleMod.VERSION)
+//@Mod is a tag that lets MinecraftForge know that it needs to load this file as a mod file
+public class ExampleMod {
+
+	// --------------------- Global Variables ---------------------
+	// These two String variables are used by minecraftForge, just leave them as is!
+	public static final String MODID = "examplemod";
+	public static final String VERSION = "1.0";
+
+	// Put your Item, Block and ToolMaterial global variables here!
+	public static Item magicChicken;
+	// generic item
+	public static Item chefKnife;
+	public static Item tristoniumIngot;
+	public static Block tristoniumBlock;
+	
+	// create tool material for our items
+	//string name: tristoniumMaterial
+	//HarvestLvl: 3 wood=0 stone=1 iron=2 dia=3
+	//maxUses: 2000 w=60, s=132, i=251 d=1562 g=33 
+	// efficiency: 15 w=2,s=4,i=6,d=8,g=12
+	// damage:  5     w=0,s=1,i=2,d=3,g=0
+	// enchantiblity: w=15,s=5,i=14,d=10,g=22
+	
+	// create tool material for our items
+		//string name: tristoniumMaterial
+		//HarvestLvl: 3 
+		//maxUses: 2000  
+		// efficiency: 15
+		// damage:  5    
+		// enchantiblity: 14
+
+	
+	public static ToolMaterial tristoniumMaterial = 
+			EnumHelper.addToolMaterial("tristoniumMaterial", 3, 2000, 300, 5, 14);
+	
+	public static Item tristoniumSword;
+	public static Item tristoniumPickaxe;
+	public static Item tristoniumShovel;
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+
+	// --------------------- PreInitialization ---------------------
+	@EventHandler
+	public void preinit(FMLPreInitializationEvent event) {
+		// Put "PREINIT" code here between the Open { and Closed } brackets
+		
+		
+		MinecraftForge.EVENT_BUS.register(new ModEventHandler());
+		
+		
+		
+		// --------------------- Code Custom Items, Tools and Blocks! ---------------------
+		//Put your code to create Items, Tools and Blocks here!		
+		
+		
+		// food item 1!
+		// (healAmmount, SaturationModifier, wolvesFavoriteFood)
+		magicChicken = new MagicChickenNugget(3,0.3F,false)
+				//(potionID,duration(ticks),amplifier,chance(0-1f))
+				.setPotionEffect(Potion.regeneration.id, 8, 1, 1f)
+				.setMaxStackSize(40)
+				.setUnlocalizedName("magicChicken")
+				.setTextureName(MODID + ":magicChickenTexture")
+				.setCreativeTab(CreativeTabs.tabFood)
+				;
+		// register chicken nugget item
+		GameRegistry.registerItem(magicChicken, "magicChicken");
+		
+		
+		// generic item 1
+		// chef knife for crafting
+		chefKnife = new GenericItem()
+				.setUnlocalizedName("chefKnife")
+				.setTextureName(MODID + ":chefKnife")
+				.setCreativeTab(CreativeTabs.tabMisc)
+				.setMaxStackSize(16);
+		//register item
+		GameRegistry.registerItem(chefKnife, "chefKnife");
+		// add a .lang entry to name this item
+		// item.chefKnife.name=Chef's Knife
+		
+		// generic item 2
+				// tristonium ingot
+				tristoniumIngot = new GenericItem()
+						.setUnlocalizedName("tristoniumIngot")
+						.setTextureName(MODID + ":tristoniumIngot")
+						.setCreativeTab(CreativeTabs.tabMisc);
+				//register item
+				GameRegistry.registerItem(tristoniumIngot, "tristoniumIngot");
+				// add a .lang entry to name this item
+				// item.chefKnife.name=Chef's Knife
+		
+		
+		
+		
+		
+		// Block code!
+		tristoniumBlock = new TristoniumBlock(Material.rock)
+				.setBlockName("tristoniumBlock")
+				.setCreativeTab(CreativeTabs.tabBlock)
+				.setBlockTextureName(MODID + ":TristoniumBlock")
+				.setHardness(1.5f) // hardness of rock
+				.setResistance(20f)
+				.setStepSound(Block.soundTypeMetal)
+				.setLightLevel(0f)
+				.setLightOpacity(15)
+				;
+		
+		// pickaxe, axe, spade
+		// level: 0 = wood, 1 = Stone, 2 = Iron, 3 = Diamond
+		tristoniumBlock.setHarvestLevel("pickaxe", 3);
+		// register the block
+		GameRegistry.registerBlock(tristoniumBlock, "tristoniumBlock");
+		
+		
+		// first custom tool: tristoniumSword
+		tristoniumSword = new TristoniumSword(tristoniumMaterial)
+				.setUnlocalizedName("tristoniumSword")
+				.setTextureName(MODID + ":tristoniumSword")
+				.setCreativeTab(CreativeTabs.tabTools);
+		
+		GameRegistry.registerItem(tristoniumSword, "tristoniumSword");
+		
+		// second custom tool: tristoniumPickaxe
+		tristoniumPickaxe = new TristoniumPickaxe(tristoniumMaterial)
+				.setUnlocalizedName("tristoniumPickaxe")
+				.setTextureName(MODID + ":tristoniumPickaxe")
+				.setCreativeTab(CreativeTabs.tabTools);
+		
+		GameRegistry.registerItem(tristoniumPickaxe, "tristoniumPickaxe");
+		
+		tristoniumShovel = new TristoniumShovel(tristoniumMaterial)
+				.setUnlocalizedName("tristoniumShovel")
+				.setTextureName(MODID + ":tristoniumShovel")
+				.setCreativeTab(CreativeTabs.tabTools);
+		tristoniumShovel.setHarvestLevel("spade", 3);
+		GameRegistry.registerItem(tristoniumShovel, "tristoniumShovel");
+		
+		
+		
+		//------------------------------
+		// Tasks:
+		// textures for new tool items
+		// names for new tool in en_US.lang
+		// smelting/shapeless/shaped recipe for...
+		// food item
+		// generic item
+		// your block
+		// tool 1
+		// tool 2
+		//------------------------------
+		// leaves + sugar = maple candy
+		// stick + iron = chef's knife
+		//
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		// --------------------- ItemStacks ---------------------
+		//make ItemStack variables for any item you would like to use in a smelting or crafting recipe
+		
+		
+		ItemStack nuggetStack = new ItemStack(magicChicken,40);
+		ItemStack chefKnifeStack = new ItemStack(chefKnife);
+		ItemStack tristoniumBlockStack = new ItemStack(tristoniumBlock);
+		ItemStack tristoniumPickaxeStack = new ItemStack(tristoniumPickaxe);
+		ItemStack tristoniumSwordStack = new ItemStack(tristoniumSword);
+		ItemStack tristoniumIngotStack = new ItemStack(tristoniumIngot);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// --------------------- Smelting Recipes ---------------------
+		//create your smelting recipe by registering it with the GameRegistry here
+		
+		
+		//recipe 1
+		// create a smelting recipe to make dirt into diamonds
+		// need dirt and diamonds for my recipe so we need to put them into ItemStack variables
+		//VariablyType variableName = new VariableType(block/item input);
+		ItemStack dirtStack =  new ItemStack(Blocks.dirt);
+		ItemStack diamondStack = new ItemStack(Items.diamond);
+		//register smelting recipe with GameRegistry!
+		//addSmelting(inputItemStack,outputItemStack,floatXP)
+		//inputItemStack = variable name of your input item
+		//outputItemSTack = variable name of your output item
+		// floatXp = a decimal number (float) 1f = 1 small section on the xp bar
+		GameRegistry.addSmelting(dirtStack, diamondStack, 1);
+
+		
+		//recipe 2
+		// change iron chestplate into chainmail chestplate
+		// need dirt and diamonds for my recipe so we need to put them into ItemStack variables
+		// VariablyType variableName = new VariableType(block/item input);
+		ItemStack ironChestplateStack = new ItemStack(Items.iron_chestplate);
+		ItemStack chainmailChestStack = new ItemStack(Items.chainmail_chestplate);
+		// register smelting recipe
+		GameRegistry.addSmelting(ironChestplateStack, chainmailChestStack, 5);
+		
+		//recipe 3
+		// turn rotten flesh into leather!
+		ItemStack rottenFleshStack = new ItemStack(Items.rotten_flesh);
+		ItemStack leatherStack = new ItemStack(Items.leather);
+		// register smelting recipe
+		GameRegistry.addSmelting(rottenFleshStack, leatherStack, 2);
+		
+		
+		//recipe 4
+		// turn cake in coal stack
+		ItemStack cakeStack = new ItemStack(Items.cake);
+		ItemStack coalStack = new ItemStack(Items.coal);
+		// register recipe
+		GameRegistry.addSmelting(cakeStack, coalStack, .05f);
+	
+		
+		// recipe 5
+		// smelt tristonium block to tristonium ingot
+		GameRegistry.addSmelting(tristoniumBlockStack, tristoniumIngotStack, 3);
+		
+
+		
+		
+
+
+
+
+		// --------------------- Shapeless Crafting Recipes ---------------------
+		//Create your shapeless crafting recipe by registering it with the GameRegistry here
+
+		// shapeless recipe 1
+		// turn a SEED and a STICK into a SAPLING
+		ItemStack seedStack = new ItemStack(Items.wheat_seeds);
+		ItemStack stickStack = new ItemStack(Items.stick);
+		ItemStack saplingStack = new ItemStack(Blocks.sapling,2,3);
+		//register recipe // show metadata
+		GameRegistry.addShapelessRecipe(saplingStack, seedStack,stickStack);
+		
+		// shapeless recipe 2
+		// iron ore + flint and steel = iron ingot
+		ItemStack ironOreStack = new ItemStack(Blocks.iron_ore);
+		ItemStack flintSStack = new ItemStack(Items.flint_and_steel);
+		ItemStack ironIngotStack = new ItemStack(Items.iron_ingot);
+		// register recipe
+		GameRegistry.addShapelessRecipe(ironIngotStack, ironOreStack,flintSStack);
+		
+		
+		//shapeless recipe 3
+		// gold ore + flint and steel = gold ingot
+		ItemStack goldOreStack = new ItemStack(Blocks.gold_ore);
+		ItemStack goldIngotStack = new ItemStack(Items.gold_ingot);
+		// already have flint and steel stack
+		// Register recipe
+		GameRegistry.addShapelessRecipe(goldIngotStack, goldOreStack, flintSStack);
+
+		// shapeless recipe 4
+		// gold ingot, apple, nether star = enchanted golden apple
+		ItemStack appleStack = new ItemStack(Items.apple);
+		ItemStack netherStarStack = new ItemStack(Items.nether_star);
+		ItemStack enchantedAppleStack = new ItemStack(Items.golden_apple,1,1);
+		// register recipe
+		GameRegistry.addShapelessRecipe(enchantedAppleStack, goldIngotStack, appleStack, netherStarStack);
+		
+		// shapeless recipe 5
+		// cooked chicken and chefs knife = 
+		ItemStack cookedChickenStack = new ItemStack(Items.cooked_chicken);
+		GameRegistry.addShapelessRecipe(nuggetStack, chefKnifeStack, cookedChickenStack);
+		
+		
+		
+		
+		
+
+
+		// --------------------- Shaped Crafting Recipes ---------------------
+		//Create your shaped crafting recipe by registering it with the GameRegistry here		
+		
+		
+		
+		// Shaped recipe 1
+		// turn LEATHER and IRON INGOT and WOOL into a SADDLE
+//		ItemStack leatherStack = new ItemStack(Items.leather);
+//		ItemStack ironIngotStack = new ItemStack(Items.iron_ingot);
+		ItemStack woolStack = new ItemStack(Blocks.wool);
+		ItemStack saddleStack = new ItemStack(Items.saddle);
+		//register our shaped recipe
+		GameRegistry.addShapedRecipe(saddleStack, 
+				"LLL",
+				"LWL",
+				"I I",
+				'L',leatherStack,
+				'W',woolStack,
+				'I',ironIngotStack);
+		
+		
+		//shaped recipe 2
+		// turn wood logs into 4 boats
+		ItemStack oakLogStack = new ItemStack(Blocks.log);
+		ItemStack boatStack = new ItemStack(Items.boat,4);
+		// register recipe
+		GameRegistry.addShapedRecipe(boatStack, 
+				"   ",
+				"W W",
+				"WWW",
+				'W',oakLogStack);
+		
+		
+		// shaped recipe 3
+		// turn a stick and an iron ingot into a chef's knife
+		GameRegistry.addShapedRecipe(chefKnifeStack, 
+				"  I",
+				" S ",
+				"   ",
+				'I',ironIngotStack,
+				'S',stickStack);
+		
+		
+		//shaped recipe 4
+		GameRegistry.addShapedRecipe(tristoniumSwordStack, 
+				"  T",
+				"DT ",
+				"DD ",
+				'T',tristoniumIngotStack,
+				'D',diamondStack);
+		
+		//shaped recipe 4
+		GameRegistry.addShapedRecipe(tristoniumSwordStack, 
+				"TTT",
+				" D ",
+				" D ",
+				'T',tristoniumIngotStack,
+				'D',diamondStack);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+
+	} // end of PREINIT method. ALL of your modding code for the intro class should be above this line!
+
+
+
+	// --------------------- Initialization ---------------------
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
+		// Put "INIT" code here between the between the Open { and Closed } brackets
+		
+	} // end of INIT
+
+	// --------------------- PostInitialization ---------------------
+	@EventHandler
+	public void postinit(FMLPostInitializationEvent event) {
+		// Put "POSTINIT" code here between the between the Open { and Closed } brackets
+
+	} // end of POSTINIT
+} // end of ExampleMod.java file

@@ -38,6 +38,18 @@ public class ExampleModSTUDENTTEMPLATE {
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		// Put "PREINIT" code here between the Open { and Closed } brackets
+		
+		
+		// --------------------- Code Custom Items, Tools and Blocks! ---------------------
+				//Put your code to create Items, Tools and Blocks here!		
+
+				
+				
+			
+				
+		
+		
+		
 
 		// --------------------- ItemStacks ---------------------
 		//make ItemStack variables for any item you would like to use in a smelting or crafting recipe
@@ -79,24 +91,7 @@ public class ExampleModSTUDENTTEMPLATE {
 
 
 
-		// --------------------- Code Custom Items, Tools and Blocks! ---------------------
-		//Put your code to create Items, Tools and Blocks here!		
-
 		
-		
-		
-		
-		
-		
-		
-		// --------------------- Register Items, Tools and Blocks ---------------------
-		//Register your custom Items, Tools and Blocks with the game registry here!
-		
-		
-
-
-
-
 
 	} // end of PREINIT method. ALL of your modding code for the intro class should be above this line!
 
