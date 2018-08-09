@@ -1,0 +1,16 @@
+[
+{
+  "modid": "t",
+  "name": "Tutorial Mod",
+  "description": "Einstein's Workshop tutorial mod.",
+  "version": "1.0",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["MaxT2"],
+  "credits": "Tristen Payne",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

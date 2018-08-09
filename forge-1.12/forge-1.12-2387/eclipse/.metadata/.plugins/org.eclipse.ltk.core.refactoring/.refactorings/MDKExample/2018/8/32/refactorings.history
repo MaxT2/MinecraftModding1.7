@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;assets.tm.models.items&apos; to &apos;assets.tm.models.item&apos;&#x0D;&#x0A;- Original project: &apos;MDKExample&apos;&#x0D;&#x0A;- Original element: &apos;MDKExample/src/main/resources/assets.tm.models.items&apos;&#x0D;&#x0A;- Renamed element: &apos;MDKExample/src/main/resources/assets.tm.models.item&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;assets.tm.models.items&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/resources&lt;assets.tm.models.items" name="assets.tm.models.item" qualified="false" references="true" stamp="1533844591456" textual="false" version="1.0"/>
+</session>
