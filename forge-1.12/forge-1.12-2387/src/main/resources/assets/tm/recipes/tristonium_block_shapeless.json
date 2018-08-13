@@ -3,22 +3,22 @@
     
     "pattern":
     [
-        "RRR",
-        "RRR",
-        "RRR"
+        "III",
+        "III",
+        "III"
     ],
     
     "key":
     {
-        "R":
+        "I":
         {
-            "item": "modid:object"
+            "item": "tm:tristonium_ingot"
         }
     },
     
     "result":
     {
-        "item": "modid:object",
+        "item": "tm:tristonium_block",
         "count": 1
     }
 }

@@ -1,5 +1,6 @@
 package com.maxt2.tutorialmod;
 
+import com.maxt2.tutorialmod.init.ModSmelting;
 import com.maxt2.tutorialmod.proxy.CommonProxy;
 import com.maxt2.tutorialmod.util.Reference;
 
@@ -32,7 +33,7 @@ public class Main
     @EventHandler
     public void Init(FMLInitializationEvent event)
     {
-    	
+    	ModSmelting.init();
     }
     
     @EventHandler

@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "III",
+        "III",
+        "III"
+    ],
+    
+    "key":
+    {
+        "I":
+        {
+            "item": "tm:tristonium_ingot"
+        }
+    },
+    
+    "result":
+    {
+        "item": "tm:tristonium_block",
+        "count": 1
+    }
+}
