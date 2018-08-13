@@ -14,6 +14,7 @@ public class ModItems {
 	
 	
 	// ItemBase("nameOfItem")
-	public static final Item Ruby = new ItemBase("ruby");
+	public static final Item RUBY = new ItemBase("ruby");
+	public static final Item TRISTONIUM_INGOT = new ItemBase("tristonium_ingot");
 
 }

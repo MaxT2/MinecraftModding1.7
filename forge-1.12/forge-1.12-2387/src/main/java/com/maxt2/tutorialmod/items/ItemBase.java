@@ -1,8 +1,8 @@
 package com.maxt2.tutorialmod.items;
 
 import com.maxt2.tutorialmod.Main;
-import com.maxt2.tutorialmod.init.IHasModel;
 import com.maxt2.tutorialmod.init.ModItems;
+import com.maxt2.tutorialmod.util.IHasModel;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
